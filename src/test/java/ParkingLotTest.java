@@ -63,6 +63,22 @@ public class ParkingLotTest {
 
     }
 
+
+    @Test
+    public void givenCapacityMaxOfTwo_shouldBeAbleToPark() {
+        Object vehicle2 = new Object();
+        parkingLot.setCapacity(2);
+        try {
+            parkingLot.park(vehicle);
+            parkingLot.park(vehicle2);
+            boolean isParked1 = parkingLot.isVehicleParked(vehicle);
+            boolean isParked2 = parkingLot.isVehicleParked(vehicle2);
+            Assert.assertTrue(isParked1 && isParked2);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
     public void givenNull_whenUnParked_ShouldReturnFalse() {
         try {
@@ -88,18 +104,4 @@ public class ParkingLotTest {
         }
     }
 
-    @Test
-    public void givenCapacity2_shouldBeAbleToPark() {
-        Object vehicle2 = new Object();
-        parkingLot.setCapacity(2);
-        try {
-            parkingLot.park(vehicle);
-            parkingLot.park(vehicle2);
-            boolean isParked1 = parkingLot.isVehicleParked(vehicle);
-            boolean isParked2 = parkingLot.isVehicleParked(vehicle2);
-            Assert.assertTrue(isParked1 && isParked2);
-        } catch (ParkingLotException e) {
-            e.printStackTrace();
-        }
-    }
 }
