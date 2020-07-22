@@ -1,16 +1,23 @@
 
 public class ParkingLot {
     public Object vehicle;
+    private Owner owner;
 
     public ParkingLot() {
     }
 
-    public boolean park(Object vehicle) {
+    public void park(Object vehicle) throws ParkingLotException {
         if( this.vehicle != null )
-            return false;
+            throw  new ParkingLotException("Parking Full",
+                    ParkingLotException.ExceptionType.FULL);
         this.vehicle = vehicle;
-        return true;
     }
+    public boolean isVehicleParked(Object vehicle) {
+        if(this.vehicle.equals(vehicle))
+            return true;
+        return false;
+    }
+
     public boolean unPark(Object vehicle) throws ParkingLotException {
         if(this.vehicle == null) return  false;
         if (this.vehicle.equals(vehicle)) {
@@ -20,5 +27,10 @@ public class ParkingLot {
         throw new ParkingLotException("No such model exist", ParkingLotException.ExceptionType.WRONG_DETAILS);
     }
 
+
+    public boolean registerOwner(Owner owner) {
+        this.owner = owner;
+        return  true;
+    }
 
 }
