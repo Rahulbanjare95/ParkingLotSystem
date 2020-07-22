@@ -1,7 +1,7 @@
 public class ParkingLotException extends Exception {
 
     public enum ExceptionType {
-        WRONG_DETAILS
+        FULL, WRONG_DETAILS
     }
 
     public ExceptionType type;
