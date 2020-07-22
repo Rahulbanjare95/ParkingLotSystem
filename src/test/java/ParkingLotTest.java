@@ -2,20 +2,22 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+
 public class ParkingLotTest {
 
     Object vehicle = null;
     ParkingLot parkingLot = null;
 
+
     @Before
     public void setUp() throws Exception {
         vehicle = new Object();
-        parkingLot = new ParkingLot();
+        parkingLot = new ParkingLot(1);
     }
 
     @Test
     public void givenAVehicle_whenParked_ShouldReturnTrue() {
-        ParkingLot parkingLot = new ParkingLot();
+        ParkingLot parkingLot = new ParkingLot(1);
         try {
             parkingLot.park(vehicle);
             boolean isParked = parkingLot.isVehicleParked(vehicle);
@@ -76,6 +78,28 @@ public class ParkingLotTest {
     public void givenVehicle_whenParkingLotFull_shouldInformOwner() {
         Owner owner = new Owner();
         parkingLot.registerOwner(owner);
+        try {
+            parkingLot.park(vehicle);
+            parkingLot.park(new Object());
 
+        } catch (ParkingLotException e) {
+            boolean capacityFull = owner.isCapacityFull();
+            Assert.assertTrue(capacityFull);
+        }
+    }
+
+    @Test
+    public void givenCapacity2_shouldBeAbleToPark() {
+        Object vehicle2 = new Object();
+        parkingLot.setCapacity(2);
+        try {
+            parkingLot.park(vehicle);
+            parkingLot.park(vehicle2);
+            boolean isParked1 = parkingLot.isVehicleParked(vehicle);
+            boolean isParked2 = parkingLot.isVehicleParked(vehicle2);
+            Assert.assertTrue(isParked1 && isParked2);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
     }
 }
